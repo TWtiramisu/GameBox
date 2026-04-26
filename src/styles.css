@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0c;
+  --color-sidebar: #121214;
+  --color-accent: #7c3aed;
+  --color-accent-hover: #8b5cf6;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-gray-100 overflow-hidden select-none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent hover:bg-accent-hover text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-accent/20 flex items-center gap-2;
+  }
+  
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-200 border-l-4 border-transparent;
+  }
+  
+  .sidebar-item.active {
+    @apply bg-white/5 border-accent text-accent;
+  }
+  
+  .sidebar-item:hover:not(.active) {
+    @apply bg-white/5 border-white/10;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
+
+/* Glassmorphism */
+.glass {
+  @apply bg-white/5 backdrop-blur-md border border-white/10;
+}
