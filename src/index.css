@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #030305;
+  --color-sidebar: #0a0a0c;
+  --color-accent: #7c3aed;
+  --color-accent-hover: #8b5cf6;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-gray-100 overflow-hidden select-none;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent hover:bg-accent-hover text-white font-black transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg;
+    box-shadow: 0 4px 30px rgba(124, 58, 237, 0.4);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 4px 40px rgba(124, 58, 237, 0.6);
+  }
+
+  .btn-update {
+    @apply text-white font-black transition-all duration-300 transform hover:scale-105 active:scale-95;
+    background: linear-gradient(135deg, #d97706, #b45309);
+    box-shadow: 0 4px 30px rgba(245, 158, 11, 0.3);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+  }
+  .btn-update:hover {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 4px 40px rgba(245, 158, 11, 0.5);
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 cursor-pointer transition-all duration-200 border border-transparent rounded-xl;
+  }
+
+  .sidebar-item:hover:not(.active) {
+    @apply bg-white/5 border-white/5;
+  }
+}
+
+/* ========================================================
+   ✨ 追加：設定視窗與新增收藏專用「高級非線性微動態」(Spring Timings)
+   ======================================================== */
+
+@keyframes super-spring {
+  0% { opacity: 0; transform: scale(0.94) translateY(12px); filter: blur(4px); }
+  70% { opacity: 1; transform: scale(1.01) translateY(-2px); filter: blur(0px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes dialog-backdrop-fade {
+  from { opacity: 0; backdrop-filter: blur(0px); background-color: rgba(0, 0, 0, 0); }
+  to { opacity: 1; backdrop-filter: blur(24px); background-color: rgba(0, 0, 0, 0.6); }
+}
+
+/* 提供給 App.tsx 中 Modal 與 Settings 呼叫的動畫類名 */
+.animate-super-spring {
+  animation: super-spring 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-backdrop-fade {
+  animation: dialog-backdrop-fade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 原有全域捲軸樣式修正：懸停時改為紫色電競感 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.4);
+}
+
+/* 原有毛玻璃效果 */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 防止 Tauri 視窗拖拽干擾按鈕點擊 */
+.no-drag {
+  -webkit-app-region: no-drag; 
+}
